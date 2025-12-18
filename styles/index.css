@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/**
+ * Enable native browser dark mode support for scrollbars and form controls.
+ * This tells the browser to adjust its native UI elements based on the current theme.
+ */
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+/* Prevent code blocks from overflowing on mobile */
+.prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Allow inline code to wrap */
+.prose :not(pre) > code {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}

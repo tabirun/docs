@@ -2,12 +2,14 @@
   "tasks": {
     "dev": "deno run -A dev.ts",
     "build": "deno run -A build.ts",
-    "serve": "deno run -A serve.ts"
+    "serve": "deno run -A serve.ts",
+    "check": "deno check **/*.ts **/*.tsx",
+    "lint": "deno lint"
   },
   "nodeModulesDir": "auto",
   "imports": {
     "@tabirun/app": "jsr:@tabirun/app@^0.1.2",
-    "@tabirun/pages": "jsr:@tabirun/pages@^0.6.2",
+    "@tabirun/pages": "jsr:@tabirun/pages@^0.7.3",
     "postcss": "npm:postcss@^8.4.49",
     "tailwindcss": "npm:tailwindcss@^4",
     "@tailwindcss/postcss": "npm:@tailwindcss/postcss@^4",

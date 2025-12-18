@@ -24,7 +24,7 @@
     "jsr:@std/streams@^1.0.14": "1.0.14",
     "jsr:@std/yaml@^1.0.10": "1.0.10",
     "jsr:@tabirun/app@~0.1.2": "0.1.2",
-    "jsr:@tabirun/pages@~0.6.2": "0.6.2",
+    "jsr:@tabirun/pages@~0.7.3": "0.7.3",
     "npm:@tailwindcss/postcss@4": "4.0.6",
     "npm:@tailwindcss/typography@0.5": "0.5.19_tailwindcss@4.0.8",
     "npm:esbuild@0.24": "0.24.2",
@@ -120,8 +120,8 @@
         "jsr:@std/path@^1.0.8"
       ]
     },
-    "@tabirun/pages@0.6.2": {
-      "integrity": "cc095e95c966b7240845a988204f498d2757fea29b61434a21c89bab12255cd6",
+    "@tabirun/pages@0.7.3": {
+      "integrity": "3588fb62ba4e2b184a77a7979467f226137c0e78cfa0fdead8042e9660401ec8",
       "dependencies": [
         "jsr:@luca/esbuild-deno-loader",
         "jsr:@std/async",
@@ -800,7 +800,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@tabirun/app@~0.1.2",
-      "jsr:@tabirun/pages@~0.6.2",
+      "jsr:@tabirun/pages@~0.7.3",
       "npm:@tailwindcss/postcss@4",
       "npm:@tailwindcss/typography@0.5",
       "npm:postcss@^8.4.49",

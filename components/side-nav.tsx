@@ -7,19 +7,19 @@ const normalizePath = (path?: string) =>
   path === "/" ? "/" : path?.replace(/\/+$/, "");
 
 /** Single navigation item with label and link. */
-interface NavItem {
+export interface NavItem {
   label: string;
   href: string;
 }
 
 /** Group of navigation items under a section title. */
-interface NavGroup {
+export interface NavGroup {
   title: string;
   items: NavItem[];
 }
 
 /** Navigation entry - either a single item or a group. */
-type NavEntry = NavItem | NavGroup;
+export type NavEntry = NavItem | NavGroup;
 
 /** Props for the SideNav component. */
 interface SideNavProps {

@@ -9,7 +9,7 @@
   "nodeModulesDir": "auto",
   "imports": {
     "@tabirun/app": "jsr:@tabirun/app@^0.1.2",
-    "@tabirun/pages": "jsr:@tabirun/pages@^0.7.3",
+    "@tabirun/pages": "jsr:@tabirun/pages@^0.7.4",
     "postcss": "npm:postcss@^8.4.49",
     "tailwindcss": "npm:tailwindcss@^4",
     "@tailwindcss/postcss": "npm:@tailwindcss/postcss@^4",

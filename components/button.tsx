@@ -31,7 +31,7 @@ type ButtonProps = AnchorButtonProps | StandardButtonProps;
  */
 export const Button = (props: ButtonProps) => {
   const sharedStyles =
-    "cursor-pointer font-bold rounded shadow-lg whitespace-nowrap";
+    "inline-block cursor-pointer font-bold rounded shadow-lg whitespace-nowrap";
   const themeStyles = THEME_STYLES[props.theme ?? "default"];
   const sizeStyles = SIZE_STYLES[props.size ?? "medium"];
   const styles = `${sharedStyles} ${sizeStyles} ${themeStyles}`;

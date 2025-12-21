@@ -1,81 +1,79 @@
 ---
 title: "Styling"
-description: "CSS and UnoCSS integration in Tabirun Pages"
+description: "CSS processing with PostCSS in Tabirun Pages"
 ---
 
 # Styling
 
-Tabirun Pages supports plain CSS and has built-in [UnoCSS](https://unocss.dev)
-integration.
+Tabirun Pages uses PostCSS for CSS processing. You provide a CSS entry file and
+a PostCSS config, and the framework handles the rest - processing, hashing, and
+injecting the stylesheet link into all pages automatically.
 
-## Static CSS
+## Setup
 
-Place CSS files in your `public/` directory and reference them in `_html.tsx`:
+### 1. Add Dependencies
 
-```tsx
-import type { DocumentProps } from "@tabirun/pages/preact";
-
-export default function Document({ head, children }: DocumentProps) {
-  return (
-    <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/public/styles.css" />
-        {head}
-      </head>
-      <body>{children}</body>
-    </html>
-  );
-}
-```
-
-During build, assets in `public/` are copied to the output with content hashing
-for cache busting.
-
-## UnoCSS Integration
-
-Tabirun Pages automatically detects UnoCSS when a `uno.config.ts` file exists in
-your project root.
-
-### Setup
-
-Add UnoCSS to your imports in `deno.json`:
+Add PostCSS and Tailwind CSS to your `deno.json`:
 
 ```json
 {
   "imports": {
-    "unocss": "npm:unocss@^66"
-  }
+    "@tabirun/app": "jsr:@tabirun/app",
+    "@tabirun/pages": "jsr:@tabirun/pages",
+    "postcss": "npm:postcss@^8",
+    "tailwindcss": "npm:tailwindcss@^4",
+    "@tailwindcss/postcss": "npm:@tailwindcss/postcss@^4",
+    "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5"
+  },
+  "nodeModulesDir": "auto"
 }
 ```
 
-Create `uno.config.ts`:
+### 2. Create PostCSS Config
+
+Create `postcss.config.ts` at your project root:
 
 ```typescript
-import { defineConfig, presetTypography, presetUno } from "unocss";
+import tailwindcss from "@tailwindcss/postcss";
 
-export default defineConfig({
-  presets: [
-    presetUno(),
-    presetTypography(),
-  ],
-});
+export default {
+  plugins: [tailwindcss()],
+};
+```
+
+### 3. Create CSS Entry File
+
+Create `styles/index.css`:
+
+```css
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
 ```
 
 That's it. Tabirun Pages will:
 
-1. Scan all pages, layouts, and components for class usage
-2. Generate only the CSS you use
-3. Inject the CSS into your pages automatically
+1. Detect `postcss.config.ts` and process your CSS
+2. Generate a content-hashed output file (`/__styles/A1B2C3D4.css`)
+3. Inject the `<link rel="stylesheet">` into all pages automatically
 
-See the [UnoCSS documentation](https://unocss.dev) for configuration options,
-presets, and utility class reference.
+No need to manually add stylesheet links to your `_html.tsx`.
 
-### Markdown Typography
+## Configuration
 
-Use `presetTypography` with the `wrapperClassName` option to style markdown
-content:
+The CSS entry file defaults to `./styles/index.css`. To use a different path:
+
+```typescript
+const { dev, build } = pages({
+  css: { entry: "./src/styles/main.css" },
+});
+```
+
+## Markdown Typography
+
+Use Tailwind's typography plugin with the `wrapperClassName` option to style
+markdown content:
 
 ```typescript
 const { dev } = pages({
@@ -85,29 +83,13 @@ const { dev } = pages({
 });
 ```
 
-Or apply prose classes in your layout:
+This wraps rendered markdown in:
 
-```tsx
-import type { LayoutProps } from "@tabirun/pages/preact";
-
-export default function DocsLayout(props: LayoutProps) {
-  return (
-    <article className="prose dark:prose-invert max-w-none">
-      {props.children}
-    </article>
-  );
-}
+```html
+<div class="prose dark:prose-invert">
+  <!-- rendered markdown -->
+</div>
 ```
-
-## Asset Hashing
-
-During production builds, all assets including CSS files are content-hashed:
-
-```
-/public/styles.css → /__public/styles-a1b2c3d4.css
-```
-
-This enables aggressive caching while ensuring updates are always served.
 
 ## Next Steps
 

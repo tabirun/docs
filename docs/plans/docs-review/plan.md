@@ -53,6 +53,25 @@ import type { DocumentProps, LayoutProps } from "@tabirun/pages/preact";
 The Markdown component exists but is marked `@internal Not part of public API`.
 REMOVE all documentation about embedding Markdown in TSX pages.
 
+### CSS/Styling Documentation is WRONG
+
+Docs claimed UnoCSS was auto-detected and built-in. **COMPLETELY FALSE.**
+
+Actual implementation (per ADR-008):
+
+- Uses **PostCSS** as generic CSS processing layer
+- Requires `postcss.config.ts` at project root
+- Users install their own PostCSS plugins (Tailwind, UnoCSS, etc.)
+- CSS entry file configured via `css.entry` option (default:
+  `./styles/index.css`)
+
+Fixed styling.md to document:
+
+1. PostCSS setup requirements
+2. Tailwind CSS 4 setup (what docs site actually uses)
+3. UnoCSS as alternative via @unocss/postcss
+4. Static CSS fallback for simple projects
+
 ---
 
 ## Review Checklist
@@ -94,9 +113,11 @@ REMOVE all documentation about embedding Markdown in TSX pages.
       internal Markdown component docs
 - [x] `/docs/pages/components.md` - Fixed: imports, REMOVED Markdown docs
       (internal), added Code component, fixed DocumentProps
-- [x] `/docs/pages/styling.md` - Fixed: DocumentProps, markdown config syntax
+- [x] `/docs/pages/styling.md` - **REWRITTEN**: Removed false UnoCSS claims,
+      documented PostCSS setup, Tailwind CSS 4 example, UnoCSS alternative
 - [x] `/docs/pages/configuration.md` - Fixed: entire API, basePath default (""
-      not "/"), DocumentProps, CSS entry default
+      not "/"), DocumentProps, CSS entry default, build process (PostCSS not
+      UnoCSS)
 - [x] `/docs/pages/build-and-deploy.md` - Fixed: serve() not
       registerStaticServer
 
@@ -111,6 +132,8 @@ REMOVE all documentation about embedding Markdown in TSX pages.
 5. **Config**: `basePath` default is `""`, `shikiTheme` at top-level,
    `markdown.wrapperClassName`
 6. **Removed internal API**: Markdown component is internal, only Code is public
+7. **CSS/Styling**: PostCSS-based (NOT built-in UnoCSS), requires
+   postcss.config.ts, documented Tailwind CSS 4 setup
 
 ---
 
@@ -158,7 +181,8 @@ types, and configuration options match the actual implementations.
 - [x] `markdown.md` - Correct: shikiTheme config, markdown.wrapperClassName,
       imports
 - [x] `pages-and-routing.md` - Correct: DocumentProps with head/children
-- [x] `styling.md` - Correct: DocumentProps, markdown config
+- [x] `styling.md` - **WRONG**: Claimed UnoCSS auto-detection, actually uses
+      PostCSS. REWRITTEN with correct Tailwind CSS 4 example.
 
 ### Verified App Docs
 

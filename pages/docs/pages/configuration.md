@@ -100,7 +100,7 @@ await build({
 1. Clean output directory
 2. Scan for pages and system files
 3. Build asset map with content hashes
-4. Generate UnoCSS (if configured)
+4. Process CSS via PostCSS (if postcss.config.ts exists)
 5. Build client bundles (parallel)
 6. Render pages to HTML (parallel)
 7. Render 404 and error pages

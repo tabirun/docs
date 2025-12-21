@@ -106,7 +106,7 @@ export default function HomePage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-indigo-500 mt-0.5">-</span>
-                  UnoCSS or Tailwind CSS
+                  Opt-in PostCSS support
                 </li>
               </ul>
               <Button as="a" href="/docs/pages/getting-started" size="small">
